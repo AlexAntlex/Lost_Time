@@ -1,32 +1,54 @@
+import os
 import pygame
-from car import Car
+import sys
+from gamer_car import GamerCar
+from NPS_car import NPS
 
 pygame.init()
-size = width, height = 300, 300
+WIDTH = 600
+HEIGHT = 600
+size = WIDTH, HEIGHT
 screen = pygame.display.set_mode(size)
 
-running = True
+
+def load_image(name):
+    fullname = os.path.join('data', name)
+    image = pygame.image.load(fullname).convert_alpha()
+    return image
+
+
+def terminate():
+    pygame.quit()
+    sys.exit()
+
+
+def start_screen():
+    pass
+
+
+background = pygame.transform.scale(load_image('fon.png'), (WIDTH, HEIGHT))
+background_rect = background.get_rect()
 clock = pygame.time.Clock()
-fps = 30
+fps = 60
 
-all_sprites = pygame.sprite.Group()
-car = Car()
-all_sprites.add(car)
 
-while running:
-    key = pygame.key.get_pressed()
-    if key[pygame.K_UP]:
-        car.rect.y -= 10
-    if key[pygame.K_DOWN]:
-        car.rect.y += 10
-    if key[pygame.K_LEFT]:
-        car.rect.x -= 10
-    if key[pygame.K_RIGHT]:
-        car.rect.x += 10
+gamer_sprite = pygame.sprite.Group()
+gamer = GamerCar()
+gamer_sprite.add(gamer)
+
+NPS_sprites = pygame.sprite.Group()
+for _ in range(7):
+    NPS(NPS_sprites)
+
+while True:
+    clock.tick(fps)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-    screen.fill((255, 255, 255))
-    all_sprites.draw(screen)
-    clock.tick(fps)
+            terminate()
+    gamer_sprite.update()
+    screen.fill((0, 0, 0))
+    screen.blit(background, background_rect)
+    gamer_sprite.draw(screen)
+    NPS_sprites.draw(screen)
+    NPS_sprites.update()
     pygame.display.flip()
