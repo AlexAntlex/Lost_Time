@@ -15,6 +15,8 @@ class Gamer(pygame.sprite.Sprite):
         self.rect.bottom = HEIGHT - 10
         self.speedx = 0
         self.speedy = 0
+        self.shoot_delay = 250
+        self.last_shot = pygame.time.get_ticks()
 
     def update(self):
         self.speedx = 0
@@ -38,3 +40,30 @@ class Gamer(pygame.sprite.Sprite):
             self.rect.bottom = HEIGHT
         if self.rect.top < 0:
             self.rect.top = 0
+
+    def shoot(self):
+        now = pygame.time.get_ticks()
+
+        if now - self.last_shot > self.shoot_delay:
+            self.last_shot = now
+            bullet = Bullet(self.rect.centerx, self.rect.top)
+            bullets.add(bullet)
+
+
+class Bullet(pygame.sprite.Sprite):
+    image = load_image('bullet.png')
+
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = Bullet.image
+        self.rect = self.image.get_rect()
+        self.rect.bottom = y
+        self.rect.centerx = x
+        self.speedy = -10
+
+    def update(self):
+        self.rect.y += self.speedy
+        if self.rect.bottom < 0:
+            self.kill()
+        if pygame.sprite.collide_mask(self, nps):
+            nps.kill()
