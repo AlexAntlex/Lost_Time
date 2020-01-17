@@ -29,14 +29,14 @@ clock = pygame.time.Clock()
 
 mus_on = True
 pygame.mixer.init()
-snd = pygame.mixer.Sound('car.ogg')
+snd = pygame.mixer.Sound('start_menu.ogg')
 music = ''
 
 
 def play_music():
     if mus_on:
         music = 'Sound ON'
-        snd.play(-1,0,0)
+        snd.play(-1, 0, 0)
     else:
         music = 'Sound OFF'
         snd.stop()
