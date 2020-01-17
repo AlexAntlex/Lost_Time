@@ -1,3 +1,7 @@
+import pygame
+from had_files import load_image, WIDTH, HEIGHT
+
+
 class GameIcon(pygame.sprite.Sprite):
     icons = [load_image('Sun_00000.png'),
              load_image('Sun_00001.png'),

@@ -1,6 +1,7 @@
 import pygame
 import sys
 import sqlite3
+from load_files import load_music
 
 pygame.init()
 
@@ -20,27 +21,11 @@ surface_menu.fill(bgcolor)
 fps = 10
 clock = pygame.time.Clock()
 
-mus_on = True
-pygame.mixer.init()
-snd = pygame.mixer.Sound('car.ogg')
-music = ''
-
 clock = pygame.time.Clock()
 input_box = pygame.Rect((surface_width / 2) - 70, (surface_height / 2) - 100, 200, 200)
 color_active = pygame.Color(153, 102, 255)
 text = ''
 done = False
-score = 10
-
-
-def play_music():
-    if mus_on:
-        music = 'Sound ON'
-        snd.play(-1, 0, 0)
-    else:
-        music = 'Sound OFF'
-        snd.stop()
-    return music
 
 
 def DrawText(text, font, surface_menu, x, y, selected=False):
@@ -60,8 +45,8 @@ def ur_name():
              (surface_height / 2) - 200)
 
 
-def running_add():
-    global done, text, score
+def running_add(score):
+    global done, text
     con = sqlite3.connect('rating.db')
     cur = con.cursor()
     while not done:
@@ -87,17 +72,17 @@ def running_add():
 
 
 pygame.mouse.set_visible(False)
-music = play_music()
-ur_name()
 
-while True:
-    running_add()
-    if done:
-        pygame.quit()
-        sys.exit()
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-    pygame.display.flip()
-    clock.tick(30)
+
+def fin(score):
+    ur_name()
+    while True:
+        running_add(score)
+        if done:
+            return
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+        pygame.display.flip()
+        clock.tick(30)

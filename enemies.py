@@ -1,24 +1,28 @@
 import random
 import pygame
-from main import load_image, HEIGHT, WIDTH, game_over, gamer
+from had_files import WIDTH, HEIGHT, game_over, explosion_anim
+from load_files import load_image
 
 
 class NPS(pygame.sprite.Sprite):
-    NPS_image = load_image("nps.png")
+    enemies_ships = [load_image('nps_1.png'),
+                     load_image('nps_2.png'),
+                     load_image('nps_3.png')]
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = NPS.NPS_image
+        self.image = random.choice(NPS.enemies_ships)
         self.image = pygame.transform.scale(self.image, (50, 60))
         self.image = pygame.transform.rotate(self.image, 180)
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
+        self.radius = int(self.rect.width * 0.85 / 2)
         self.rect.x = random.randrange(WIDTH - self.rect.width)
         self.rect.y = random.randrange(-100, -40)
         self.speedy = random.randrange(1, 8)
         self.speedx = random.randrange(-3, 3)
 
-    def update(self):
+    def update(self, gamer=None, score=0):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
         if self.rect.top > HEIGHT + 10 or self.rect.left < -25 or self.rect.right > WIDTH + 20:
@@ -26,10 +30,11 @@ class NPS(pygame.sprite.Sprite):
             self.rect.y = random.randrange(-100, -40)
             self.speedy = random.randrange(1, 8)
         if pygame.sprite.collide_mask(self, gamer):
-            game_over()
+            game_over(score)
+
 
 class Explosion(pygame.sprite.Sprite):
-    def __init__(self, center, size):
+    def __init__(self, center, size, explosion_anim):
         pygame.sprite.Sprite.__init__(self)
         self.size = size
         self.image = explosion_anim[self.size][0]

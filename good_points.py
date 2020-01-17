@@ -1,6 +1,6 @@
 import random
 import pygame
-from main import load_image, HEIGHT, WIDTH, gamer
+from had_files import WIDTH, HEIGHT, load_image
 
 
 class Point(pygame.sprite.Sprite):
@@ -15,7 +15,7 @@ class Point(pygame.sprite.Sprite):
         self.rect.x = random.randrange(WIDTH)
         self.rect.y = random.randrange(HEIGHT)
 
-    def update(self):
+    def update(self, gamer=None):
         if pygame.sprite.collide_mask(self, gamer):
             self.kill()
         if self.rect.top > HEIGHT or self.rect.right > WIDTH:

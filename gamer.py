@@ -1,5 +1,5 @@
 import pygame
-from main import load_image, HEIGHT, WIDTH
+from had_files import load_image, HEIGHT, WIDTH, bullets
 
 
 class Gamer(pygame.sprite.Sprite):
@@ -61,7 +61,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.centerx = x
         self.speedy = -10
 
-    def update(self):
+    def update(self, nps=None):
         self.rect.y += self.speedy
         if self.rect.bottom < 0:
             self.kill()
