@@ -15,8 +15,10 @@ bgcolor = (51, 51, 51)
 font_color = (255, 255, 153)
 highlite_color = (153, 102, 255)
 font = pygame.font.SysFont('agencyfb', 65)
-surface_width = 1200
-surface_height = 700
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+area = screen.get_rect()
+surface_width = area[2]
+surface_height = area[3]
 
 surface_menu = pygame.display.set_mode([surface_width, surface_height])
 pygame.display.set_caption("Lost Time")
