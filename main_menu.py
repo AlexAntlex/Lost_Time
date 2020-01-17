@@ -1,5 +1,8 @@
 import pygame
 import sqlite3
+import sys
+
+pygame.init()
 
 number = 0
 menu = True
@@ -50,7 +53,6 @@ def DrawText(text, font, surface_menu, x, y, selected=False):
 
 
 def main_menu():
-    pygame.init()
     surface_menu.fill(bgcolor)
     DrawText('Lost Time', (pygame.font.SysFont('agencyfb', 80)), surface_menu, (surface_width / 2) - 80, (surface_height / 2) - 200)
     DrawText('Start', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110, True)
@@ -60,7 +62,6 @@ def main_menu():
 
 
 def menu_option():
-    pygame.init()
     surface_menu.fill(bgcolor)
     DrawText('Options', (pygame.font.SysFont('agencyfb', 80)), surface_menu, (surface_width / 2) - 80,
              (surface_height / 2) - 200)
@@ -82,7 +83,6 @@ def running_menu():
             DrawText('Start', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110)
             DrawText('Options', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 40, True)
             DrawText('Quit', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) + 30)
-            pygame.display.update()
         elif number == 1:
             number += 1
             surface_menu.fill(bgcolor)
@@ -91,7 +91,6 @@ def running_menu():
             DrawText('Start', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110)
             DrawText('Options', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 40)
             DrawText('Quit', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) + 30, True)
-            pygame.display.update()
         else:
             number = 0
             surface_menu.fill(bgcolor)
@@ -100,7 +99,6 @@ def running_menu():
             DrawText('Start', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110, True)
             DrawText('Options', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 40)
             DrawText('Quit', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) + 30)
-            pygame.display.update()
 
     if key[pygame.K_UP]:
         if number == 0:
@@ -111,7 +109,6 @@ def running_menu():
             DrawText('Start', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110)
             DrawText('Options', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 40)
             DrawText('Quit', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) + 30, True)
-            pygame.display.update()
         elif number == 1:
             number = 0
             surface_menu.fill(bgcolor)
@@ -120,7 +117,6 @@ def running_menu():
             DrawText('Start', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110, True)
             DrawText('Options', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 40)
             DrawText('Quit', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) + 30)
-            pygame.display.update()
         else:
             number = 1
             surface_menu.fill(bgcolor)
@@ -129,7 +125,6 @@ def running_menu():
             DrawText('Start', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110)
             DrawText('Options', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 40, True)
             DrawText('Quit', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) + 30)
-            pygame.display.update()
 
     if key[pygame.K_RETURN]:
         if number == 1:
@@ -141,13 +136,12 @@ def running_menu():
             pass
         elif number == 2:
             pygame.quit()
+            sys.exit()
         number = 0
-        pygame.display.update()
 
 
 def running_option():
     global number, option, music, menu, mus_on, rate
-
     key = pygame.key.get_pressed()
     if key[pygame.K_DOWN]:
         if number == 0:
@@ -158,7 +152,6 @@ def running_option():
             DrawText(music, font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110)
             DrawText('Rating', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 40, True)
             DrawText('Back to menu', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) + 30)
-            pygame.display.update()
         elif number == 1:
             number += 1
             surface_menu.fill(bgcolor)
@@ -167,7 +160,6 @@ def running_option():
             DrawText(music, font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110)
             DrawText('Rating', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 40)
             DrawText('Back to menu', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) + 30, True)
-            pygame.display.update()
         else:
             number = 0
             surface_menu.fill(bgcolor)
@@ -176,7 +168,6 @@ def running_option():
             DrawText(music, font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110, True)
             DrawText('Rating', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 40)
             DrawText('Back to menu', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) + 30)
-            pygame.display.update()
 
     if key[pygame.K_UP]:
         if number == 0:
@@ -187,7 +178,6 @@ def running_option():
             DrawText(music, font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110)
             DrawText('Rating', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 40)
             DrawText('Back to menu', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) + 30, True)
-            pygame.display.update()
         elif number == 1:
             number = 0
             surface_menu.fill(bgcolor)
@@ -196,7 +186,6 @@ def running_option():
             DrawText(music, font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110, True)
             DrawText('Rating', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 40)
             DrawText('Back to menu', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) + 30)
-            pygame.display.update()
         else:
             number = 1
             surface_menu.fill(bgcolor)
@@ -205,7 +194,6 @@ def running_option():
             DrawText(music, font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 110)
             DrawText('Rating', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) - 40, True)
             DrawText('Back to menu', font, surface_menu, (surface_width / 2) - 65, (surface_height / 2) + 30)
-            pygame.display.update()
 
     if key[pygame.K_RETURN]:
         if number == 1:
@@ -224,18 +212,15 @@ def running_option():
             menu = True
             main_menu()
         number = 0
-        pygame.display.update()
 
     if key[pygame.K_ESCAPE]:
         option = False
         menu = True
         main_menu()
         number = 0
-        pygame.display.update()
 
 
 def rating():
-    pygame.init()
     surface_menu.fill(bgcolor)
     pygame.display.update()
     DrawText('Rating', (pygame.font.SysFont('agencyfb', 80)), surface_menu, (surface_width / 2) - 80,
@@ -260,12 +245,11 @@ def running_rating():
         rate = False
         option = True
         menu_option()
-        pygame.display.update()
 
 
-main_menu()
 pygame.mouse.set_visible(False)
 music = play_music()
+main_menu()
 
 while True:
     if menu:
@@ -277,5 +261,6 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+            sys.exit()
     pygame.display.flip()
     clock.tick(fps)

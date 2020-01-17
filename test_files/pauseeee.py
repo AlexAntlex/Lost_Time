@@ -59,8 +59,6 @@ def new_option():
 def running_new():
     global numb, music, mus_on
 
-    pygame.init()
-
     key = pygame.key.get_pressed()
     if key[pygame.K_DOWN]:
         if numb == 0:
