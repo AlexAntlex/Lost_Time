@@ -16,6 +16,7 @@ fps = 60
 
 
 def terminate():
+    # Закрытие программы
     pygame.quit()
     sys.exit()
 
@@ -94,6 +95,7 @@ for i in range(9):
 
 
 def draw_text(surf, text, x, y):
+    # Отрисовка счетчика во время игры
     font = pygame.font.SysFont('agencyfb', 50)
     text_surface = font.render(text, True, (255, 255, 255))
     text_rect = text_surface.get_rect()
