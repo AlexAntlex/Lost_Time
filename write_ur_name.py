@@ -19,9 +19,7 @@ pygame.display.set_caption("Lost Time")
 surface_menu.fill(bgcolor)
 
 fps = 10
-clock = pygame.time.Clock()
-
-clock = pygame.time.Clock()
+clock = pygame.time.Clock() # отрисовка прямоугольника, в который вводятся данные
 input_box = pygame.Rect((surface_width / 2) - 70, (surface_height / 2) - 100, 200, 200)
 color_active = pygame.Color(153, 102, 255)
 text = ''
@@ -39,7 +37,7 @@ def DrawText(text, font, surface_menu, x, y, selected=False):
     surface_menu.blit(textobj, textrect)
 
 
-def ur_name():
+def ur_name():   # первоначальная отрисовка экрана
     surface_menu.fill(bgcolor)
     DrawText('Put your name:', (pygame.font.SysFont('agencyfb', 80)), surface_menu, (surface_width / 2) - 80,
              (surface_height / 2) - 200)
@@ -48,7 +46,7 @@ def ur_name():
 def running_add(score):
     global done, text
     con = sqlite3.connect('rating.db')
-    cur = con.cursor()
+    cur = con.cursor()  # добавление результатов в бд
     while not done:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -62,7 +60,7 @@ def running_add(score):
                     text = text[:-1]
                 else:
                     text += event.unicode
-        ur_name()
+        ur_name() # отрисовка экрана заново и отрисовка текста
         txt_surface = font.render(text, True, font_color)
         width = max(200, txt_surface.get_width() + 10)
         input_box.w = width
