@@ -5,6 +5,7 @@ from load_files import load_image
 
 
 class NPS(pygame.sprite.Sprite):
+    """Класс для спрайтов вражеских кораблей"""
     enemies_ships = [load_image('nps_1.png'),
                      load_image('nps_2.png'),
                      load_image('nps_3.png')]
@@ -34,6 +35,7 @@ class NPS(pygame.sprite.Sprite):
 
 
 class Explosion(pygame.sprite.Sprite):
+    """Анимация взрыва при столкновении с пулей"""
     def __init__(self, center, size, explosion_anim):
         pygame.sprite.Sprite.__init__(self)
         self.size = size
