@@ -31,6 +31,7 @@ score = 0
 
 
 def game():
+    """Основной игровой цикл"""
     global score, nps
     counter, text = 4, '3'.rjust(3)
     snd = load_music('game.ogg')
@@ -47,6 +48,7 @@ def game():
                         pause(stop)
                 if event.key == pygame.K_SPACE:
                     gamer.shoot()
+             # Счетчик в начале игры
             if event.type == pygame.USEREVENT:
                 counter -= 1
                 text = str(counter).rjust(3) if counter > 0 else 'boom!'
@@ -57,6 +59,7 @@ def game():
             screen.blit(font.render(text, True, (255, 255, 255)), (WIDTH / 2.1, HEIGHT / 2.2))
             pygame.display.flip()
         elif counter <= 0:
+            # После окончания отсчета начинается основной геймплей
             gamer_sprite.update()
             screen.fill((0, 0, 0))
             screen.blit(background, background_rect)
@@ -70,12 +73,14 @@ def game():
             eploude_sprite.draw(screen)
             eploude_sprite.update()
             hits = pygame.sprite.groupcollide(NPS_sprites, bullets, True, True)
+            # Реакция на столкновения врагов и выстрелов
             for hit in hits:
                 score += 50 - hit.radius
                 expl = Explosion(hit.rect.center, 'lg', explosion_anim)
                 eploude_sprite.add(expl)
                 nps = NPS()
                 NPS_sprites.add(nps)
+            # Реакция на столкновение игрока и звезд
             hits_2 = pygame.sprite.spritecollide(gamer, point_sprites, True)
             for _ in hits_2:
                 score += 75
