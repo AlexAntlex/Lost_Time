@@ -56,7 +56,7 @@ def DrawText(text, font, surface_menu, x, y, selected=False):
     surface_menu.blit(textobj, textrect)
 
 
-def main_menu():
+def main_menu():  # отрисовка меню с "кнопками"
     screen.fill(bgcolor)
     DrawText('Lost Time', (pygame.font.SysFont('agencyfb', 80)), screen, (surface_width / 2) - 80, (surface_height / 2) - 200)
     DrawText('Start', font, screen, (surface_width / 2) - 65, (surface_height / 2) - 110, True)
@@ -65,7 +65,7 @@ def main_menu():
     pygame.display.update()
 
 
-def menu_option():
+def menu_option():  # отрисовка опций с "кнопками"
     screen.fill(bgcolor)
     DrawText('Options', (pygame.font.SysFont('agencyfb', 80)), screen, (surface_width / 2) - 80,
              (surface_height / 2) - 200)
@@ -75,13 +75,13 @@ def menu_option():
     pygame.display.update()
 
 
-def running_menu():
+def running_menu():  # реализация выбора нужной "кнопки" стрелочками в меню
     global number, option, menu
-    key = pygame.key.get_pressed()
+    key = pygame.key.get_pressed()  # программа определяет, какая "кнопка" выбрана по счетчику
     if key[pygame.K_DOWN]:
         if number == 0:
             number += 1
-            screen.fill(bgcolor)
+            screen.fill(bgcolor)   # отрисовка всего заново, но с закрашенной выбранной "кнопкой"
             DrawText('Lost Time', (pygame.font.SysFont('agencyfb', 80)), screen, (surface_width / 2) - 80,
                      (surface_height / 2) - 200)
             DrawText('Start', font, screen, (surface_width / 2) - 65, (surface_height / 2) - 110)
@@ -145,8 +145,8 @@ def running_menu():
         number = 0
 
 
-def running_option():
-    global number, option, music, menu, mus_on, rate
+def running_option():  # реализация выбора нужной "кнопки" стрелочками в опциях 
+    global number, option, music, menu, mus_on, rate    # работает по тому же принципу, как и выбор "кнопки" в меню
     key = pygame.key.get_pressed()
     if key[pygame.K_DOWN]:
         if number == 0:
@@ -225,14 +225,14 @@ def running_option():
         number = 0
 
 
-def rating():
+def rating():     # отрисовка окошка рейтинга
     screen.fill(bgcolor)
     pygame.display.update()
     DrawText('Rating', (pygame.font.SysFont('agencyfb', 80)), screen, (surface_width / 2) - 80,
              (surface_height / 2) - 200)
     con = sqlite3.connect('rating.db')
-    cur = con.cursor()
-    result = cur.execute("""SELECT users, score FROM Score ORDER BY score DESC""").fetchmany(5)
+    cur = con.cursor()   # вытаскиваем инфу из бд
+    result = cur.execute("""SELECT users, score FROM Score ORDER BY score DESC""").fetchmany(5) 
     b = 110
     for elem in result:
         a = str(result.index(elem) + 1) + '. ' + elem[0] + ' - ' + str(elem[1]) + ' points'
@@ -243,7 +243,7 @@ def rating():
     DrawText('Back to options', font, screen, (surface_width / 2) - 65, (surface_height / 2) + 270, True)
 
 
-def running_rating():
+def running_rating():    # реализация выхода в меню после отрисовки рейтинга
     global rate, option
     key = pygame.key.get_pressed()
     if key[pygame.K_ESCAPE] or key[pygame.K_RETURN]:
